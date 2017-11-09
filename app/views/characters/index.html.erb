@@ -1,0 +1,23 @@
+<h1>Characters</h1>
+<table id="character-table" width="100%">
+  <thead>
+    <tr>
+      <th width="15%">Character</th>
+      <th width="15%">Movie</th>
+      <th width="15">Actor</th>
+      <th width="15%">Year</th>
+      <th width="40%">Quote</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @characters.each do |character| %>
+      <tr>
+        <td><%= character.name %></td>
+        <td><%= character.movie %></td>
+        <td><%= character.actor %></td>
+        <td><%= character.year %></td>
+        <td><%= character.quote %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
