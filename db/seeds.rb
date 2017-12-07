@@ -3,10 +3,10 @@
 #
 Character.destroy_all
 
-50.times do
+1000.times do
   Character.create(
     name: Faker::Name.name,
-    movie: Faker::Movie.quote,
+    movie: Faker::Book.title,
     quote: Faker::MostInterestingManInTheWorld.quote,
     actor: Faker::Name.name,
     year: rand(30) + 1985
