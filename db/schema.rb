@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218153011) do
+ActiveRecord::Schema.define(version: 20171218155638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20171218153011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "fixture_types_locations", id: false, force: :cascade do |t|
+    t.integer "fixture_type_id"
+    t.integer "location_id"
+  end
+
+  add_index "fixture_types_locations", ["fixture_type_id"], name: "index_fixture_types_locations_on_fixture_type_id", using: :btree
+  add_index "fixture_types_locations", ["location_id"], name: "index_fixture_types_locations_on_location_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "code"

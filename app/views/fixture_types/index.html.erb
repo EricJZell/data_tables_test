@@ -1,0 +1,99 @@
+<h1 id="totals">--</h1>
+
+<%= form_tag(nested_tables_fixture_types_path, id: 'nested-form', method: :get) do %>
+  <%= label_tag(:locations, "Locations") %>
+  <%= text_field_tag(:locations) %>
+  <%= label_tag(:fixtures, "Fixtures") %>
+  <%= text_field_tag(:fixtures) %>
+  <%= label_tag(:content, "Content") %>
+  <%= text_field_tag(:content) %>
+  <%= submit_tag("FIND") %>
+<% end %>
+
+<table id="nested-table" width="100%">
+  <thead>
+    <tr>
+      <th width="10%"></th>
+      <th width="45%">Fixture Type</th>
+      <th width="45%">Locations Count</th>
+    </tr>
+  </thead>
+</table>
+<script>
+
+$( document ).ready(function() {
+  var format = function(row) {
+    return '<table id="fixture-type' + row.id() +'" width="100%">' +
+      '<thead>' +
+        '<tr>' +
+          '<th width="20%">Code</th>' +
+          '<th width="10">Status</th>' +
+          '<th width="10%">Name</th>' +
+          '<th width="10%">Region</th>' +
+          '<th width="10%">Address</th>' +
+          '<th width="10%">City</th>' +
+          '<th width="10">State</th>' +
+          '<th width="10%">Zip</th>' +
+          '<th width="10%">Phone Number</th>' +
+        '</tr>' +
+      '</thead>' +
+    '</table>'
+
+  }
+
+  $('#nested-form').submit(function(e) {
+    e.preventDefault();
+    var table = $('#nested-table').DataTable({
+      destroy: true,
+      ajax: "/fixture_types/nested_tables.json",
+      columns: [
+        {
+          "defaultContent": '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
+          "className": 'expand'
+        },
+        { "data": "name" },
+        { "data": "location_count" },
+      ]
+    })
+    table.on( 'xhr', function () {
+      var json = table.ajax.json();
+      $('#totals').text(json.totals)
+    });
+  })
+
+  $('#nested-table').on('click', 'td.expand', function(){
+    // var tr = $('tr')[2]
+    $(this).find('i').toggleClass('fa-chevron-right')
+    $(this).find('i').toggleClass('fa-chevron-down')
+    var table = $('#nested-table').DataTable()
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
+
+    if (row.child.isShown()) {
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      row.child(format(row)).show();
+      tr.addClass('shown')
+      var subTable = $('#fixture-type' + row.id())
+      subTable.DataTable({
+      data: row.data().locations,
+      columns: [
+              { "data": "code" },
+              { "data": "status" },
+              { "data": "name" },
+              { "data": "region" },
+              { "data": "address" },
+              { "data": "city" },
+              { "data": "state" },
+              { "data": "zip" },
+              { "data": "phone_number" },
+            ]
+      })
+    }
+  });
+
+});
+
+</script>

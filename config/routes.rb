@@ -6,6 +6,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :fixture_types, only: [:index] do
+    collection do
+      get 'nested_tables'
+    end
+  end
+
+
   root 'locations#index'
   get 'characters/index'
 

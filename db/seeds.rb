@@ -30,3 +30,6 @@
 # 200.times do
 #   FixtureType.create(name: Faker::Space.star)
 # end
+# Location.find_each do |location|
+#   location.fixture_types << FixtureType.where(id: [rand(200) +1, rand(200) +1, rand(200) +1, rand(200) +1, rand(200) +1])
+# end
