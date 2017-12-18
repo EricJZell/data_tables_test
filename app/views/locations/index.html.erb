@@ -1,0 +1,42 @@
+<h1 id="totals">--</h1>
+
+<%= form_tag(store_explorer_locations_path, id: 'explorer-form', method: :post) do %>
+  <%= label_tag(:locations, "Locations") %>
+  <%= text_field_tag(:locations) %>
+  <%= label_tag(:fixtures, "Fixtures") %>
+  <%= text_field_tag(:fixtures) %>
+  <%= label_tag(:content, "Content") %>
+  <%= text_field_tag(:content) %>
+  <%= submit_tag("FIND") %>
+<% end %>
+
+<table id="location-table" width="100%">
+  <thead>
+    <tr>
+      <th width="20%">Code</th>
+      <th width="10">Status</th>
+      <th width="10%">Name</th>
+      <th width="10%">Region</th>
+      <th width="10%">Address</th>
+      <th width="10%">City</th>
+      <th width="10">State</th>
+      <th width="10%">Zip</th>
+      <th width="10%">Phone Number</th>
+    </tr>
+  </thead>
+  <!-- <tbody>
+    <% @locations.each do |location| %>
+      <tr class="<%= cycle("odd", "even") -%>">
+        <td><%= location.code %></td>
+        <td><%= location.status %></td>
+        <td><%= location.name %></td>
+        <td><%= location.region %></td>
+        <td><%= location.address %></td>
+        <td><%= location.city %></td>
+        <td><%= location.state %></td>
+        <td><%= location.zip %></td>
+        <td><%= location.phone_number %></td>
+      </tr>
+    <% end %>
+  </tbody> -->
+</table>

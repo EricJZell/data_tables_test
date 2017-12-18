@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  root 'characters#index'
+
+  resources :locations, only: [:index] do
+    collection do
+      get 'store_explorer'
+    end
+  end
+
+  root 'locations#index'
   get 'characters/index'
 
   # The priority is based upon order of creation: first created -> highest priority.

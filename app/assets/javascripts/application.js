@@ -16,3 +16,27 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+$( document ).ready(function() {
+  $('#explorer-form').submit(function(e) {
+    e.preventDefault();
+    var table = $('#location-table').DataTable({
+      destroy: true,
+      ajax: "/locations/store_explorer.json",
+      columns: [
+        { "data": "code" },
+        { "data": "status" },
+        { "data": "name" },
+        { "data": "region" },
+        { "data": "address" },
+        { "data": "city" },
+        { "data": "state" },
+        { "data": "zip" },
+        { "data": "phone_number" },
+      ]
+    })
+  table.on( 'xhr', function () {
+    var json = table.ajax.json();
+    $('#totals').text(json.totals)
+  });
+  })
+});
